@@ -1,3 +1,9 @@
+## datasource I:  https://zenodo.org/record/3525432#.YpAfHpNBxQN
+## datasource II: https://zenodo.org/record/3525510#.YpAfW5NBxQM
+wget -c https://zenodo.org/record/3525432/files/Hmec.tgz?download=1
+tar -zxvf Hmec.tgz\?download\=1  # generate "Hmec" directory
+
+
 ## download HiC-Reg
 wget -c https://github.com/Roy-lab/HiC-Reg/archive/refs/heads/master.zip
 unzip master.zip  # HiC-Reg-master
@@ -75,3 +81,46 @@ awk '{if($1=="chr1") print $0}' P1_1.5Sham.counts > P1_1.5Sham_chr1.counts
 ./aggregateSignal mm10_100kb.txt ~/ref_genome/Mus_musculus/mm10.fa.fai P1_1.5Sham_chr1.counts P1_1.5Sham_chr1.txt
 
 ./genDatasetsRH P1_1.5Sham_chr1_counts_pairs.tab 1000000 5 pairwise featurefiles.txt no out/ yes Window
+## directory out must be created before running genDatasetsRH!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+grep chr17 Gm12878_RawData_5000bp_seqdepth_norm_H3k4me1.txt | cut -d _ -f 1,2 > tmp_1.txt
+grep chr17 Gm12878_RawData_5000bp_seqdepth_norm_H3k4me1.txt | cut -d _ -f 3 | awk '{print "_" $1+1 "\t" $2}' > tmp_2.txt
+paste -d "" tmp_1.txt tmp_2.txt > H3k4me1_chr17.txt
+rm tmp_1.txt tmp_2.txt
+sed -i '1 i Gene\tH3k4me1' H3k4me1_chr17.txt
+
+grep chr17 Gm12878_RawData_5000bp_seqdepth_norm_H3k4me2.txt | cut -d _ -f 1,2 > tmp_1.txt
+grep chr17 Gm12878_RawData_5000bp_seqdepth_norm_H3k4me2.txt | cut -d _ -f 3 | awk '{print "_" $1+1 "\t" $2}' > tmp_2.txt
+paste -d "" tmp_1.txt tmp_2.txt > H3k4me2_chr17.txt
+rm tmp_1.txt tmp_2.txt
+sed -i '1 i Gene\tH3k4me2' H3k4me2_chr17.txt
+
+SRC=Dataset.C Distance.C Framework.C
+#INCLPATH1=common
+LIBPATH = ~/softwares/gsl/lib
+INCLPATH2 =~/softwares/gsl/include
+
+LOCLIB=/home/dchasman/cmint_ashton_v3/learntrees/execs/learnpertarget/lib
+LOCINCL=/home/dchasman/cmint_ashton_v3/learntrees/execs/learnpertarget/include
+
+CC=g++
+CFLAGS = -g -std=c++0x
+LFLAG = -lgsl -lgslcblas 
+
+
+## Makefile (for genDatasetsRH)
+#local: $(SRC)
+#	$(CC) $(SRC) -I $(INCLPATH1) -I $(LOCINCL)  -L $(LOCLIB) $(LFLAG) $(CFLAGS) -o regTreeDC
+
+ALL: $(SRC)
+	$(CC) $(SRC) -I $(INCLPATH2)  -L $(LIBPATH) $(LFLAG) $(CFLAGS) -o test
+clean:
+	rm test
+
+
+## debug orders
+#splitPairs -> splitRegionsGenPairs        -> showFeaturesPair
+#              generateFeatureFiles_Concat -> showFeatures
+
+
