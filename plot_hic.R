@@ -40,8 +40,8 @@ dat <- read.table('testset_error.txt', skip = 1, col.names = c('idx', 'true', 'p
 
 ## extract left and right position
 library(stringr)
-dat$left  <- as.numeric(str_split_fixed(dat$idx, "_", 5)[, 2]) / 100000
-dat$right <- as.numeric(str_split_fixed(dat$idx, "_", 5)[, 4]) / 100000
+dat$left  <- as.numeric(str_split_fixed(dat$idx, "_", 5)[, 2]) / 10000
+dat$right <- as.numeric(str_split_fixed(dat$idx, "_", 5)[, 4]) / 10000
 
 dat <- dat[, c('left', 'right', 'true', 'pred')]
 
@@ -58,14 +58,14 @@ for (i in 1:nrow(dat)){
 library(pheatmap)
 ## plot true interactions
 png('chr1_true_test.png')
-pheatmap(hic_true[500:550, 500:550], cluster_row = FALSE, cluster_cols = FALSE,
+pheatmap(hic_true[500:1000, 500:1000], cluster_row = FALSE, cluster_cols = FALSE,
          show_rownames = FALSE, breaks = seq(0, 3, 0.03),
          color = colorRampPalette(c('white', 'red'))(100))
 dev.off()
 
 ## plot predicted interactions
 png('chr1_predict_test.png')
-pheatmap(hic_pred[500:550, 500:550], cluster_row = FALSE, cluster_cols = FALSE,
+pheatmap(hic_pred[500:1000, 500:1000], cluster_row = FALSE, cluster_cols = FALSE,
          show_rownames = FALSE, breaks = seq(0, 3, 0.03),
          color = colorRampPalette(c('white', 'red'))(100))
 dev.off()
