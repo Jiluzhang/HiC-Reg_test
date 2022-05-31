@@ -12,13 +12,14 @@ bamCoverage -p 50 -of bedgraph --binSize 1 --normalizeUsing None -b P8_1.5Sham.b
 ascp -QT -l 300m -P33001 -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh \
 era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR831/005/SRR8318835/SRR8318835.fastq.gz .
 mv SRR8318835.fastq.gz P8_1.5Sham_rep1_H3K27me3.fastq.gz
+nohup ChIPseq_mouse_single P8_1.5Sham_rep1_H3K27me3 &
 
 # NextSeq 500 sequencing; GSM3514870: P1_1.5Sham_rep2_H3K27me3; Mus musculus; ChIP-Seq
 # SRR8318800: 0d4b68aaeb948e5eb42e7dadd0b9ed4d
 ascp -QT -l 300m -P33001 -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh \
 era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR831/000/SRR8318800/SRR8318800.fastq.gz .
 mv SRR8318800.fastq.gz P8_1.5Sham_rep2_H3K27me3.fastq.gz
-
+nohup ChIPseq_mouse_single P8_1.5Sham_rep2_H3K27me3 &
 
 ####### P8_1.5MI H3K27me3
 # NextSeq 500 sequencing; GSM3514899: P8_1.5MI_rep1_H3K27me3; Mus musculus; ChIP-Seq
@@ -26,13 +27,14 @@ mv SRR8318800.fastq.gz P8_1.5Sham_rep2_H3K27me3.fastq.gz
 ascp -QT -l 300m -P33001 -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh \
 era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR831/009/SRR8318829/SRR8318829.fastq.gz .
 mv SRR8318829.fastq.gz P8_1.5MI_rep1_H3K27me3.fastq.gz
+nohup ChIPseq_mouse_single P8_1.5MI_rep1_H3K27me3 &
 
 # NextSeq 500 sequencing; GSM3514900: P8_1.5MI_rep2_H3K27me3; Mus musculus; ChIP-Seq
 # SRR8318830: 9d45f1c93b5291a9f94876a787df6cf0
 ascp -QT -l 300m -P33001 -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh \
 era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR831/000/SRR8318830/SRR8318830.fastq.gz .
 mv SRR8318830.fastq.gz P8_1.5MI_rep2_H3K27me3.fastq.gz
-
+nohup ChIPseq_mouse_single P8_1.5MI_rep2_H3K27me3 &
 
 
 samtools merge -@ 50 P8_1.5Sham.bam \
