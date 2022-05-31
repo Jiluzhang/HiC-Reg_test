@@ -99,6 +99,7 @@ awk '{print("chr"$0)}' H3K27me3/H3K27me3.bedgraph > H3K27me3.counts
 for i in $(seq 19) X;do
   echo ..........chr$i start..........
   
+  cd ~/Heliyon/3d_genome_prediction/hicreg/mouse/train  # pay attention to working directory
   mkdir chr$i && cd chr$i
   
   ## aggregate H3K27ac signal
