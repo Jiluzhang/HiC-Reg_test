@@ -95,11 +95,10 @@ awk '{print $1 "\t" "CONVERT" "\t" "gene" "\t" $2 "\t" $3-1 "\t" "." "\t" "+" "\
 awk '{print("chr"$0)}' H3K27ac/H3K27ac.bedgraph > H3K27ac.counts
 awk '{print("chr"$0)}' H3K27me3/H3K27me3.bedgraph > H3K27me3.counts
 
-
-#### aggregation.sh
-date
-echo ..........start..........
-for i in $(seq 1);do
+#### aggregation_train.sh
+for i in $(seq 19) X;do
+  echo ..........chr$i start..........
+  
   mkdir chr$i && cd chr$i
   
   ## aggregate H3K27ac signal
@@ -115,26 +114,17 @@ for i in $(seq 1);do
   awk '{if($1!=$2 && ($2-$1)<=2000000 && ($3!="NaN")) print "chr'$i'_"$1"_"($1+10000) "\t" "chr'$i'_"$2"_"($2+10000) "\t" $3}' > counts_pairs.tab
   
   ## aggregate features
-  mkdir out
-  genDatasetsRH counts_pairs.tab 2000000 5 regionwise ../featurefiles.txt no out/ yes Window  # 5: foldcv
+  mkdir data
+  genDatasetsRH counts_pairs.tab 2000000 5 regionwise ../featurefiles.txt no data/ yes Window  # 5: foldcv
   
   ## train model
-  mkdir out_2
-  regForest -t out/train0.txt -o out_2/ -k1 -l10 -n20 -b ../prior_window.txt -d out/test0.txt
+  mkdir model
+  regForest -t data/train0.txt -o model/ -k1 -l10 -n20 -b ../prior_window.txt -d data/test0.txt
   
-  echo ..........end..........
-  date
-  #echo chr$i Done
+  echo ..........chr$i end..........
 done
 
 
-mkdir out_2
-regForest -t out/train0.txt -o out_2/ -k1 -l10 -n20 -b ../prior_window.txt -d out/test0.txt
-
-
-
-
-
-
-
-
+## chromosome 1 train model & predict
+#total train MSE 0.0581978 CC 0.959721
+#Total test MSE 0.183452 CC 0.861949
