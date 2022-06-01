@@ -19,6 +19,8 @@ awk '{print("chr"$0)}' H3K27me3/P1_1.5MI.bedgraph > H3K27me3.counts
 ####### aggregate_predict.sh
 for i in $(seq 19) X;do
   echo ........chr$i start.........
+  
+  cd ~/Heliyon/3d_genome_prediction/hicreg/mouse/test/P1_1.5MI
   mkdir chr$i && cd chr$i
   
   ## aggregate H3K27ac signal
