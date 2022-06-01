@@ -21,35 +21,21 @@ era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR831/000/SRR8318800/SRR8318800.fastq.g
 mv SRR8318800.fastq.gz P8_1.5Sham_rep2_H3K27me3.fastq.gz
 nohup ChIPseq_mouse_single P8_1.5Sham_rep2_H3K27me3 &
 
-####### P8_1.5MI H3K27me3
-# NextSeq 500 sequencing; GSM3514899: P8_1.5MI_rep1_H3K27me3; Mus musculus; ChIP-Seq
-# SRR8318829: 42a1a383adf4da2670c2db405edadab4
-ascp -QT -l 300m -P33001 -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh \
-era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR831/009/SRR8318829/SRR8318829.fastq.gz .
-mv SRR8318829.fastq.gz P8_1.5MI_rep1_H3K27me3.fastq.gz
-nohup ChIPseq_mouse_single P8_1.5MI_rep1_H3K27me3 &
-
-# NextSeq 500 sequencing; GSM3514900: P8_1.5MI_rep2_H3K27me3; Mus musculus; ChIP-Seq
-# SRR8318830: 9d45f1c93b5291a9f94876a787df6cf0
-ascp -QT -l 300m -P33001 -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh \
-era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR831/000/SRR8318830/SRR8318830.fastq.gz .
-mv SRR8318830.fastq.gz P8_1.5MI_rep2_H3K27me3.fastq.gz
-nohup ChIPseq_mouse_single P8_1.5MI_rep2_H3K27me3 &
-
-
 samtools merge -@ 50 P8_1.5Sham.bam \
-                     ~/ChIP_seq/mouse/P8_heart/H3K27me3/P8_1.5Sham_rep1/P8_1.5Sham_rep1_uniquely_rm.bam \
-                     ~/ChIP_seq/mouse/P8_heart/H3K27me3/P8_1.5Sham_rep2/P8_1.5Sham_rep2_uniquely_rm.bam
-samtools index -@ 50 P1_1.5Sham.bam
-bamCoverage -p 50 -of bedgraph --binSize 1 --normalizeUsing None -b P1_1.5Sham.bam -o P1_1.5Sham.bedgraph
+                     ~/ChIP_seq/mouse/P8_heart/H3K27me3/P8_1.5Sham_rep1/P8_1.5Sham_rep1_H3K27me3_uniquely_rm.bam \
+                     ~/ChIP_seq/mouse/P8_heart/H3K27me3/P8_1.5Sham_rep2/P8_1.5Sham_rep2_H3K27me3_uniquely_rm.bam
+samtools index -@ 50 P8_1.5Sham.bam
+bamCoverage -p 50 -of bedgraph --binSize 1 --normalizeUsing None -b P8_1.5Sham.bam -o P8_1.5Sham.bedgraph
 
-awk '{print("chr"$0)}' H3K27ac/P1_1.5Sham.bedgraph > H3K27ac.counts
-awk '{print("chr"$0)}' H3K27me3/P1_1.5Sham.bedgraph > H3K27me3.counts
+awk '{print("chr"$0)}' H3K27ac/P8_1.5Sham.bedgraph > H3K27ac.counts
+awk '{print("chr"$0)}' H3K27me3/P8_1.5Sham.bedgraph > H3K27me3.counts
 
 
 ####### aggregate_predict.sh
 for i in $(seq 19) X;do
   echo ........chr$i start.........
+  
+  cd ~/Heliyon/3d_genome_prediction/hicreg/mouse/test/P8_1.5Sham
   mkdir chr$i && cd chr$i
   
   ## aggregate H3K27ac signal
