@@ -1,4 +1,4 @@
-##### P1 IREs #####
+########## P1 IREs ##########
 sham <- read.table('P1_1.5Sham_IREs.txt')[, c(4, 8)]
 #chr1	3616	3636	E_1	chr1	3616	3617	4.86
 #chr1	3616	3636	E_1	chr1	3616	3618	4.22
@@ -28,7 +28,7 @@ dev.off()
 t.test(sham_agg$val, mi_agg$val)$p.value  # 9.052523e-41
 
 
-#### P1 non_IREs #####
+######### P1 non_IREs ##########
 sham <- read.table('P1_1.5Sham_non_IREs.txt')[, c(4, 8)]
 colnames(sham) <- c('idx', 'val')
 sham_agg <- aggregate(sham['val'], by = list(idx = sham$idx), FUN = mean)
@@ -49,5 +49,3 @@ pdf('P1_1.5Sham_MI_non_IREs_obs_box.pdf')
 boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(3, 4), las = 1)
 dev.off()
 t.test(sham_agg$val, mi_agg$val)$p.value  # 0.6254629
-
-
