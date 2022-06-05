@@ -55,9 +55,3 @@ for i in $(seq 19) X;do
   rm idx.txt val.txt
   echo chr$i done
 done
-
-awk '{printf("chr"$1"\t");printf("%d\t", ($2+$3)*0.5/10000);printf("%d\n", ($2+$3)*0.5/10000+1)}' mouse_heart_fc_1.5_fdr_0.05_RREs.bed > IREs_10kb.bed
-
-
-
-
