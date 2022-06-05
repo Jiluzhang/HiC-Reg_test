@@ -54,3 +54,7 @@ for i in $(seq 19) X;do
   rm idx.txt val.txt
   echo chr$i done
 done
+
+
+## generate obs for IRE-gene pairs
+bedtools intersect -a IREs_genes_bin.txt -b P1_1.5MI/obs_kr.txt -wa -wb -f 1 -r | uniq > P1_1.5MI_IREs_genes.txt  # 1268
