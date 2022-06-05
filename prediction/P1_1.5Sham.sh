@@ -56,8 +56,9 @@ for i in $(seq 19) X;do
 done
 
 
+## generate obs for IRE-gene pairs
 awk '{printf("chr"$1 "\t");printf("%d\t", $2/10000);printf("%d\n", $5/10000)}' \
       ~/genome_biology_2/mouse_IREs_gene_expression/RREs_Genes.txt | \
 awk '{if($2>$3) print($1 "\t" $3 "\t" $2);else if($2<$3) print$0}' > IREs_genes_bin.txt  # 1535
 
-bedtools intersect -a IREs_genes_bin.txt -b P1_1.5Sham/obs_kr.txt -wa -wb -f 1 -r | uniq > P1_1.5Sham_IREs_genes.txt
+bedtools intersect -a IREs_genes_bin.txt -b P1_1.5Sham/obs_kr.txt -wa -wb -f 1 -r | uniq > P1_1.5Sham_IREs_genes.txt  # 1268
