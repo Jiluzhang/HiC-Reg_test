@@ -17,20 +17,10 @@ mi_agg <- aggregate(mi['val'], by = list(idx = mi$idx), FUN = mean)
 dat <- rbind(data.frame(val = sham_agg$val, idx = 'Sham'),
              data.frame(val = mi_agg$val, idx = 'MI'))
 
-library(ggplot2)
-library(ggthemes)
-p <- ggplot(dat, aes(x = val)) + geom_density(aes(color = idx))
-ggsave(p, file = "tmp2.pdf")
-
-
 pdf('P1_1.5Sham_MI_IREs_genes_obs_box.pdf')
-boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(2.5, 5.5), las = 1)
-stripchart(val ~ idx, dat, method = 'jitter', vertical = TRUE, add = TRUE)
+boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(2, 6), las = 1)  # bimodal distribution
 dev.off()
-ks.test(sham_agg$val, mi_agg$val)$p.value  # 1.857114e-34
-
-t.test(sham_agg[sham_agg$val >= 4.5, 'val'], mi_agg[mi_agg$val >= 4.5, 'val'])$p.value
-t.test(sham_agg[sham_agg$val < 4.5, 'val'], mi_agg[mi_agg$val < 4.5, 'val'])$p.value
+wilcox.test(sham_agg$val, mi_agg$val)$p.value  # 0.03460881 
 
 
 
@@ -51,9 +41,9 @@ dat <- rbind(data.frame(val = sham_agg$val, idx = 'Sham'),
              data.frame(val = mi_agg$val, idx = 'MI'))
 
 pdf('P1_1.5Sham_MI_non_IREs_genes_obs_box.pdf')
-boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(2.5, 5.5), las = 1)
+boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(2, 6), las = 1)
 dev.off()
-ks.test(sham_agg$val, mi_agg$val)$p.value  # 1.857114e-34
+wilcox.test(sham_agg$val, mi_agg$val)$p.value  # 0.5515136
 
 
 
@@ -74,9 +64,9 @@ dat <- rbind(data.frame(val = sham_agg$val, idx = 'Sham'),
              data.frame(val = mi_agg$val, idx = 'MI'))
 
 pdf('P8_1.5Sham_MI_IREs_genes_obs_box.pdf')
-boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(2.5, 5.5), las = 1)
+boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(2, 6), las = 1)
 dev.off()
-ks.test(sham_agg$val, mi_agg$val)$p.value  # 1.857114e-34
+wilcox.test(sham_agg$val, mi_agg$val)$p.value  # 0.4722958
 
 
 ########## non_IRE-gene for P8 ##########
@@ -96,6 +86,6 @@ dat <- rbind(data.frame(val = sham_agg$val, idx = 'Sham'),
              data.frame(val = mi_agg$val, idx = 'MI'))
 
 pdf('P8_1.5Sham_MI_non_IREs_genes_obs_box.pdf')
-boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(2.5, 5.5), las = 1)
+boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(2, 6), las = 1)
 dev.off()
-ks.test(sham_agg$val, mi_agg$val)$p.value  # 1.857114e-34
+wilcox.test(sham_agg$val, mi_agg$val)$p.value  # 0.3288645
