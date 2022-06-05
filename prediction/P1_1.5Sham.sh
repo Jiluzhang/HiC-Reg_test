@@ -43,3 +43,21 @@ for i in $(seq 19) X;do
   
   echo ..........chr$i end..........
 done
+
+
+
+## concat_obs_kr.sh
+for i in $(seq 19) X;do
+  cd ~/Heliyon/3d_genome_prediction/hicreg/mouse/test/P1_1.5Sham/chr$i/pred
+  awk '{print $1}' testset_error.txt | sed '1d' | cut -d _ -f 1,2,4 --output-delimiter $'\t' > idx.txt
+  sed '1d' testset_error.txt | awk '{printf("%.2f\n", $3)}' > val.txt
+  paste idx.txt val.txt | awk '{print $1 "\t" $2/10000 "\t" $3/10000 "\t" $4}' >> ~/Heliyon/3d_genome_prediction/hicreg/mouse/test/P1_1.5Sham/obs_kr.txt
+  rm idx.txt val.txt
+  echo chr$i done
+done
+
+awk '{printf("chr"$1"\t");printf("%d\t", ($2+$3)*0.5/10000);printf("%d\n", ($2+$3)*0.5/10000+1)}' mouse_heart_fc_1.5_fdr_0.05_RREs.bed > IREs_10kb.bed
+
+
+
+
