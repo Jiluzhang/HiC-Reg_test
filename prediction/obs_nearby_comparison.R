@@ -25,7 +25,7 @@ dat <- rbind(data.frame(val = sham_agg$val, idx = 'Sham'),
 pdf('P1_1.5Sham_MI_IREs_obs_box.pdf')
 boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(3, 4), las = 1)
 dev.off()
-t.test(sham_agg$val, mi_agg$val)$p.value  # 9.052523e-41
+wilcox.test(sham_agg$val, mi_agg$val)$p.value  # 2.218609e-44
 
 
 ######### non_IREs for P1 ##########
@@ -48,7 +48,7 @@ dat <- rbind(data.frame(val = sham_agg$val, idx = 'Sham'),
 pdf('P1_1.5Sham_MI_non_IREs_obs_box.pdf')
 boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(3, 4), las = 1)
 dev.off()
-t.test(sham_agg$val, mi_agg$val)$p.value  # 0.6254629
+wilcox.test(sham_agg$val, mi_agg$val)$p.value  # 0.2942329
 
 
 ########## IREs for P8 ##########
@@ -66,7 +66,7 @@ dat <- rbind(data.frame(val = sham_agg$val, idx = 'Sham'),
 pdf('P8_1.5Sham_MI_IREs_obs_box.pdf')
 boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(3, 4), las = 1)
 dev.off()
-t.test(sham_agg$val, mi_agg$val)$p.value  # 2.344935e-09
+wilcox.test(sham_agg$val, mi_agg$val)$p.value  # 1.739612e-08
 
 
 ######### non_IREs for P8 ##########
@@ -84,4 +84,4 @@ dat <- rbind(data.frame(val = sham_agg$val, idx = 'Sham'),
 pdf('P8_1.5Sham_MI_non_IREs_obs_box.pdf')
 boxplot(val ~ idx, dat, outline = FALSE, notch = FALSE, ylim = c(3, 4), las = 1)
 dev.off()
-t.test(sham_agg$val, mi_agg$val)$p.value  # 0.5130696
+wilcox.test(sham_agg$val, mi_agg$val)$p.value  # 0.3855418
