@@ -45,7 +45,6 @@ for i in $(seq 19) X;do
 done
 
 
-
 ## concat_obs_kr.sh
 for i in $(seq 19) X;do
   cd ~/Heliyon/3d_genome_prediction/hicreg/mouse/test/P1_1.5Sham/chr$i/pred
