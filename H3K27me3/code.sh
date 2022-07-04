@@ -74,3 +74,14 @@ plotProfile --perGroup -m H3K27me3_non_RREs_P8_1.5_signal.gz --yMin 20 --yMax 40
 #                                                               ~/ChIP_seq/mouse/P1_heart/H3K27me3/P1_1.5MI.bw \
 #              -R RREs_random.bed -o tmp.gz -a 2000 -b 2000 -bs 10
 #plotProfile --perGroup -m tmp.gz --yMin 20 --yMax 40 --dpi 600 -out tmp.pdf
+
+
+## RREs nearby genes promoters
+cut -f 4-7 ~/genome_biology_2/mouse_IREs_gene_expression/RREs_Genes.txt | awk '{print "chr"$0}' | sort -k1,1 -k2,2n | uniq > RREs_tss.bed
+
+computeMatrix reference-point --referencePoint center -p 40 -S P1_1.5Sham_log2ratio.bw P1_1.5MI_log2ratio.bw \
+              -R RREs_tss.bed -o H3K27me3_RREs_tss_P1_1.5_log2ratio.gz -a 2000 -b 2000 -bs 10
+plotProfile --perGroup -m H3K27me3_RREs_tss_P1_1.5_log2ratio.gz --yMin -0.2 --yMax 0.2 --dpi 600 -out H3K27me3_RREs_tss_P1_1.5_log2ratio.pdf
+
+
+
