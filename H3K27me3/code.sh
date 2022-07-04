@@ -83,5 +83,7 @@ computeMatrix reference-point --referencePoint center -p 40 -S P1_1.5Sham_log2ra
               -R RREs_tss.bed -o H3K27me3_RREs_tss_P1_1.5_log2ratio.gz -a 2000 -b 2000 -bs 10
 plotProfile --perGroup -m H3K27me3_RREs_tss_P1_1.5_log2ratio.gz --yMin -0.2 --yMax 0.2 --dpi 600 -out H3K27me3_RREs_tss_P1_1.5_log2ratio.pdf
 
-
+computeMatrix reference-point --referencePoint center -p 40 -S P8_1.5Sham_log2ratio.bw P8_1.5MI_log2ratio.bw \
+              -R RREs_tss.bed -o H3K27me3_RREs_tss_P8_1.5_log2ratio.gz -a 2000 -b 2000 -bs 10
+plotProfile --perGroup -m H3K27me3_RREs_tss_P8_1.5_log2ratio.gz --yMin -0.3 --yMax 0.2 --dpi 600 -out H3K27me3_RREs_tss_P8_1.5_log2ratio.pdf
 
